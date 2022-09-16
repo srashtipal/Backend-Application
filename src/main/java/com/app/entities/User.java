@@ -19,6 +19,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -28,6 +29,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
 
 @Entity
@@ -35,6 +37,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
+@NonNull
 public class User implements UserDetails{
 
 	
@@ -42,9 +45,10 @@ public class User implements UserDetails{
 	@GeneratedValue(strategy =GenerationType.AUTO)
 	private int id;
 	
-	@Column(name="user_name",nullable=false,length=100)
+	@Column(name="user_name",nullable=true,length=100)
 	private String name;
 	
+	@Column(unique=true)	
 	private String email;
 	
 	private String password;
