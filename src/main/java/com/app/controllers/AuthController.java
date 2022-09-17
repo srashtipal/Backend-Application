@@ -1,5 +1,11 @@
 package com.app.controllers;
 
+import java.security.Principal;
+import java.util.Optional;
+
+import javax.validation.Valid;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,11 +15,15 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.entities.User;
 import com.app.exceptions.ApiException;
 import com.app.payloads.JwtAuthReponse;
 import com.app.payloads.JwtAuthRequest;
@@ -36,6 +46,9 @@ public class AuthController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private ModelMapper mapper;
 
 	@PostMapping("/login")
 	public ResponseEntity<JwtAuthReponse> createToken(@RequestBody JwtAuthRequest request) throws Exception {
@@ -45,9 +58,12 @@ public class AuthController {
 		UserDetails userDetails = this.userDetailsService.loadUserByUsername(request.getUsername());
 
 		String token = this.jwtTokenHelper.generateToken(userDetails);
+		
+	
 
 		JwtAuthReponse response = new JwtAuthReponse();
 		response.setToken(token);
+		response.setUser(this.mapper.map((User) userDetails, UserDto.class));
 		return new ResponseEntity<JwtAuthReponse>(response, HttpStatus.OK);
 
 	}
