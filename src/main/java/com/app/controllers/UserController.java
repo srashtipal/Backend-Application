@@ -22,7 +22,7 @@ import com.app.payloads.UserDto;
 import com.app.services.UserService;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/v1/users")
 public class UserController {
 	
 	@Autowired

@@ -32,7 +32,7 @@ import com.app.services.FileService;
 import com.app.services.PostService;
 
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/api/v1")
 public class PostController {
 
 	@Autowired

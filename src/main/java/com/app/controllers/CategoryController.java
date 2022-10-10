@@ -21,7 +21,7 @@ import com.app.payloads.CategoryDto;
 import com.app.services.CategoryService;
 
 @RestController
-@RequestMapping("/api/categories")
+@RequestMapping("/api/v1/categories")
 public class CategoryController {
 
 	@Autowired
