@@ -33,6 +33,7 @@ import com.app.services.UserService;
 
 @RestController
 @RequestMapping("/api/v1/auth/")
+@CrossOrigin("*")
 public class AuthController {
 
 	@Autowired

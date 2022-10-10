@@ -13,10 +13,16 @@ import com.app.entities.Role;
 import com.app.entities.User;
 import com.app.payloads.UserDto;
 import com.app.services.UserService;
+
+import lombok.Getter;
+import lombok.Setter;
+
 import com.app.repositories.*;
 import com.app.exceptions.*;
 
 @Service
+@Getter
+@Setter
 public class UserServiceImpl implements UserService {
 
 	@Autowired
